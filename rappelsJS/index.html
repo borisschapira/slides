@@ -1,0 +1,1138 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JS FTW ! par Boris Schapira | Rappels, Bonnes pratiques et conseils</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/hemisu-light.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <section>
+                <h1> JS FTW ! </h1>
+
+                <h3>rappels, bonnes pratiques, conseils</h3>
+
+                <p>
+                    <small>par <a href="http://twitter.com/borisschapira" title="Twitter de Boris Schapira">@borisschapira</a> | <a href="http://fr.clever-age.com/">Clever Age</a></small>
+                </p>
+            </section>
+            <section>
+                <h2>Envie de changer de thème ?</h2>
+                <p>
+                    Reveal.js en offre plusieurs: <br>
+                    <a href="?#/0/1">Default</a> -
+                    <a href="?theme=sky#/0/1">Sky</a> -
+                    <a href="?theme=beige#/0/1">Beige</a> -
+                    <a href="?theme=simple#/0/1">Simple</a> -
+                    <a href="?theme=serif#/0/1">Serif</a> -
+                    <a href="?theme=night#/0/1">Night</a> <br>
+                    <a href="?theme=moon#/0/1">Moon</a> -
+                    <a href="?theme=solarized#/0/1">Solarized</a>
+                </p>
+                <p><small><a href="http://lab.hakim.se/reveal-js/">En savoir plus sur Reveal.js</a></small></p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>JavaScript</h2>
+                <h3>Hier et aujourd'hui</h3>
+            </section>
+            <section>
+                <h2>Création</h2>
+                <ul>
+                    <li>Inventé par <a href="https://twitter.com/BrendanEich">Brendan Eich</a></li>
+                    <li>Présenté pour la première fois en 1985, MochaScript (serveur)</li>
+                    <li>Netscape récupère le projet et le renomme LiveScript</li>
+                    <li>Sun s'associe à Netscape. Navigator 2, livré en 1995, inclus JavaScript</li>
+                    <li>Microsoft met la pression avec JScript (1996), et pousse involontairement la standardisation ECMA</li>
+                </ul>
+                <aside class="notes">
+                    D'abord appelé Mocha puis LiveScript, c’est suite à un accord entre Sun et Netscape qu’il prendra le
+                    nom
+                    définitif de JavaScript.
+                    Microsoft s'engouffre rapidement dans la brèche du langage dédié aux interactions avec JScript en
+                    1996, ce
+                    qui pousse Netscape à faire normaliser JS par l'ECMA en juin 1997.
+                </aside>
+            </section>
+            <section>
+                <h2>La <em>Nouvelle Vague</em></h2>
+                <ul>
+                    <li>Les années 2000 voient fleurir les frameworks JS (Prototype, Mootolls, jQuery...)</li>
+                    <li>En 2009, Node.js redonne à JavaScript sa noblesse sur serveur</li>
+                    <li>Fin des années 2000 : les potentiels successeurs se compilent en JavaScript (Coffee, Dart, TypeScript)</li>
+                </ul>
+                <aside class="notes">
+                    <ul>
+                        <li>Prototype JS, jQuery, Mootools : nouveaux concepts, héritage, extensibilité et maintenance. Adoption massive par des publics parfois différents.</li>
+                        <li>Node.js : conçu pour créer côté serveur des applications Internet capables de fortement monter en charge</li>
+                        <li>JS étant un tel standard, l'adoption d'un successeur passe par sa compilation en JS... compilation qui agit également comme un frein à l'adoption !</li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Aujourd'hui</h2>
+                <ul>
+                    <li>Un des langages les plus populaires au monde</li>
+                    <li>Dernière version : <a
+                            href="https://developer.mozilla.org/fr/docs/Web/JavaScript/New_in_JavaScript/1.8.5">1.8.5</a>
+                    </li>
+                    <li>Supporté par tous les navigateurs principaux :
+                        <img alt="Navigateurs principaux : Chrome, Firefox, IE, Opera et Safari"
+                             src="img/main-browsers.png">
+                    </li>
+                    <li>Supporté par de nombreux périphériques "exotiques"</li>
+                </ul>
+
+                <aside class="notes">
+                    <ul>
+                        <li>Populaire au sens : très utilisé et très discuté, comme C#, Java, PHP, C++, Objective C,
+                            Python, C,
+                            Ruby, Perl et le Shell <a
+                                    href="http://www.dataists.com/2010/12/ranking-the-popularity-of-programming-langauges/"
+                                    title="Ranking the popularity of programming languages | Dataists.com">d'après
+                                Dataists</a>.
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Briques applicatives JS</h2>
+
+                 <p>Les moteurs d’exécution JavaScript se séparent de plus en plus des navigateurs et deviennent des
+                    technologies stand-alone :</p>
+                <ul>
+                    <li>V8 : Chrome, Node.js</li>
+                    <li>JägerMonkey : Firefox</li>
+                    <li>SquirrelFish/Nitro : Safari</li>
+                    <li>Chakra : IE9+, Windows 8.*</li>
+                </ul>
+
+                <aside class="notes">
+                    <ul>
+                        <li>ECMAScript en est à sa 5ème édition (6ème avec Harmony).</li>
+                        <li>JägerMonkey : sucesseur de SpiderMonkey (de Brendan Eich) puis TraceMonkey, utilisé sur
+                            Firefox 4.*
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Demain</h2>
+                <p>Du JavaScript embarqué dans de nombreux périphériques.</p><p>Exemple avec le microcontrôleur JavaScript de <a href="http://tessel.io">Tessel</a>...<br />
+                <img title="Tessel Microchip" src="img/tessel_so_small_620.png" /></p>
+                <aside class="notes">
+                    Tessel est un microcontrôleur tournant sous JavaScript. Une multitude de modules (thermomètre,
+                    caméra,
+                    accéléromètre, servomoteur...) sont en développement. Compatible avec node et npm.
+                </aside>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Le langage</h2>
+                <h3>Rappels de fonctionnement</h3>
+            </section>
+            <section>
+                <h2>JavaScript</h2>
+
+                <ul>
+                    <li>Variables, fonctions, objets, instructions, opérateurs...</li>
+                    <li>Sensible à la casse, délimiteurs<code>;</code></li>
+                    <li>Nommage des variables : des symbôles spécifiques sont tolérés, comme <code>$</code> ou
+                        <code>_</code>. Utilisez-les à bon escient, par exemple pour distinguer vos variables jQuery
+                        (<code>$variable</code>) ou avoir une information de portée (
+                        <code>_internalVar</code>).
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Variables</h2>
+
+                <p>Typage faible</p>
+                    <pre><code data-trim contenteditable class="js">
+function(){
+    var _i = 10;
+    typeof _i; // "number"
+
+    _i = "dix";
+    typeof _i; // "string"
+}
+                    </code></pre>
+
+                <p>Portée et Hoisting</p>
+                    <pre><code data-trim contenteditable class="js">
+var testVar = "Variable globale";
+
+function example() {
+    alert(testVar); // undefined
+
+    var testVar = "Variable locale";
+    alert(testVar); // "Variable locale"
+}
+
+example();
+                    </code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>JavaScript est typé. Il bascule juste d'un type à l'autre sans problème</li>
+                        <li>La portée des variables se rapporte aux fonctions. Les délimiteurs de boucles et de tests
+                            conditionnels NE DELIMITE PAS la portée des variables
+                        </li>
+                        <li>A l'exécution, toutes les déclarations de variables sont déplacées au début de la fonction.
+                            De facto, il est souvent conseillé de placer toutes les déclarations de variables en début
+                            de fonction, de manière à éviter les confusions
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Variables</h2>
+
+                <p>Déclarations</p>
+                    <pre><code data-trim contenteditable class="js">
+// Déclarations multiples
+var maVariable1,
+    maVariable2 = 15,
+    maVariable3;
+
+// Déclarations de variables égales
+var maVariable1 = maVariable2 = 15;
+                    </code></pre>
+
+                <p>Référence vs. copie</p>
+                    <pre><code data-trim contenteditable class="js">
+var a = 3.14;   // Déclare et initialise une variable
+var b = a;      // copie le contenu de a dans b
+a = 4;          // modifie la valeur de a
+alert(b);       // la copie n'a pas changé : 3.14
+
+var a = [1,2];  // Initialise une variable avec un tableau
+var b = a;      // copie la référence dans une nouvelle variable
+a[0] = 99;      // modifie le tableau selon la référence
+alert(b);       // affiche le tableau modifié : [99,2]
+                    </code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>JavaScript est typé. Il bascule juste d'un type à l'autre sans problème</li>
+                        <li>La portée des variables se rapporte aux fonctions. Les délimiteurs de boucles et de tests
+                            conditionnels NE DELIMITE PAS la portée des variables
+                        </li>
+                        <li>A l'exécution, toutes les déclarations de variables sont déplacées au début de la fonction.
+                            De facto, il est souvent conseillé de placer toutes les déclarations de variables en début
+                            de fonction, de manière à éviter les confusions
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Vrai ou faux ?</h2>
+
+                <p>Opérateur d'évaluation : <code>!!</code></p>
+                <pre><code data-trim contenteditable class="js">
+var vrai = !!(0);       // faux
+var faux = !!("ftw");   // vrai
+                </code></pre>
+
+                <p>Sont faux :</p>
+                <pre><code data-trim contenteditable class="js">
+var falsies = [false, 0, "", null, undefined, NaN];
+                </code></pre>
+
+                <p>Tout le reste est vrai !</p>
+            </section>
+            <section>
+                <h2>Vrai ou faux ?</h2>
+                <p>Mais attention, certains <em>faux</em> se valent</p>
+                <pre><code data-trim contenteditable class="js">
+(false == "") && (false == 0) && (0 == ""); // true
+(null == null) && (null == undefined); // true
+                </code></pre>
+                <p>Mais les deux groupes ne font pas bon ménage...</p>
+                <pre><code data-trim contenteditable class="js">
+(null == false) || (null == 0) || (null == ""); // false
+(undefined == false) || (undefined == 0) || (undefined == ""); // false
+                </code></pre>
+                <p>Enfin <code>NaN</code> n'est égal à personne, pas même lui-même</p>
+                <pre><code data-trim contenteditable class="js">
+(NaN == false) || (NaN == 0) || (NaN == "")
+    || (NaN == undefined) || (NaN == null); // false
+(NaN == NaN); // false
+                </code></pre>
+                <p class="fragment"><img src="img/grinch.jpg" title="The Grinch does'nt like anyone" /></p>
+            </section>
+            <section>
+                <h2>Tester une variable</h2>
+                <p>Par rapport à <code>undefined</code> et <code>null</code></p>
+                <pre><code data-trim contenteditable class="js">
+if (undefined != monObjet) {
+   // compare l'égalité de mon objet face à 'null' ou 'undefined'
+}
+                </code></pre>
+                <p>Par rapport à son évaluation booléenne</p>
+                <pre><code data-trim contenteditable class="js">
+if (monObjet) {
+    // On entrera que si monObjet n'est pas considéré comme faux
+    // donc différent de false, "", undefined, null ou NaN
+}
+
+// équivaut à
+monObjet && // portion de code
+
+// équivaut à
+!!(monObjet) && // portion de code
+                </code></pre>
+                <aside class="notes">
+                    <ul>
+                        <li>JavaScript est typé. Il bascule juste d'un type à l'autre sans problème</li>
+                        <li>La portée des variables se rapporte aux fonctions. Les délimiteurs de boucles et de tests
+                            conditionnels NE DELIMITE PAS la portée des variables
+                        </li>
+                        <li>A l'exécution, toutes les déclarations de variables sont déplacées au début de la fonction.
+                            De facto, il est souvent conseillé de placer toutes les déclarations de variables en début
+                            de fonction, de manière à éviter les confusions
+                        </li>
+                    </ul>
+                </aside>
+            </section>
+            <section>
+                <h2>Fonctions</h2>
+
+                <p>Nommées</p>
+                    <pre><code data-trim contenteditable class="js">
+function sheldon() {
+    alert("Bazinga!");
+}
+sheldon();
+                    </code></pre>
+                <p>Anonymes</p>
+                    <pre><code data-trim contenteditable class="js">
+var sheldon = function() {
+    alert("Bazinga!");
+}
+sheldon();
+                    </code></pre>
+                <aside class="notes">
+                    Attention, les syntaxes nommées et anonymes s'utilisent de la même manière, mais ne sont pas équivalentes. Une fonction anonyme n'a pas de nom (logique), ce qui peut entrainer des problèmes d'identification lorsque vous débogguez ou que vous essayez de développer du code récursif.
+                    Si vous avez le choix, préférez les fonctions nommées. Quand utiliser des fonctions anonymes ? Quand vous créez un objet, un tableau, quand vous passez pas un callback...
+                </aside>
+            </section>
+            <section>
+                <h2>Fonctions : portée</h2>
+
+                <p>Pour le test</p>
+                    <pre><code data-trim contenteditable class="js">
+function callIt(name) {
+    try { window[name]() }
+    catch (e) { console && console.log('Erreur durant l\'appel de '+ name); }
+}
+                    </code></pre>
+                <p>Test de la portée des fonctions</p>
+                    <pre><code data-trim contenteditable class="js">
+callIt("a");    // Ok
+callIt("b");    // Erreur durant l'appel de b
+callIt("c");    // Erreur durant l'appel de c
+
+function a() {}
+
+var b = function () {};
+callIt("b");    // Ok
+
+var c = function d() {};
+
+callIt("c");    // Ok
+callIt("d");    // Erreur durant l'appel de d
+// En réalité, d n'est défini que durant la création de c
+                    </code></pre>
+                <p>Moralité : attention aux fonctions anonymes !</p>
+                <aside class="notes">
+                    Attention, les syntaxes nommées et anonymes s'utilisent de la même manière, mais ne sont pas équivalentes. Une fonction anonyme n'a pas de nom (logique), ce qui peut entrainer des problèmes d'identification lorsque vous débogguez ou que vous essayez de développer du code récursif.
+                    Si vous avez le choix, préférez les fonctions nommées. Quand utiliser des fonctions anonymes ? Quand vous créez un objet, un tableau, quand vous passez pas un callback...
+                </aside>
+            </section>
+            <section>
+                <h2>Objets et tableaux</h2>
+
+                <p>Object : ensemble de valeurs nommées</p>
+                    <pre><code data-trim contenteditable class="js">
+var obj = new Object();
+obj.x = 1;
+obj["y"] = 2;
+
+var obj = { x : 1, y : 3 };
+
+                    </code></pre>
+                <p>Tableaux : ensemble de valeurs indexées</p>
+                    <pre><code data-trim contenteditable class="js">
+var arr = new Array(1.2, true, { x:1, y:3 });
+
+var arr = [1.2, true, { x:1, y:3 }];
+                    </code></pre>
+
+            </section>
+            <section>
+                <h2>Objets et tableaux</h2>
+
+                <p>Parcourir avec <code>for ... in</code></p>
+                <pre><code data-trim contenteditable class="js">
+function consoleContenu(element) {
+    var result = [];
+    for( var identifiant in element ) {
+        result.push(identifiant + ":" + element[identifiant]);
+    }
+    console && console.log(result.join(', '));
+}
+
+consoleContenu(arr);    // 0:1.2, 1:true, 2:[object Object]
+consoleContenu(obj);    // x:1, y:3
+                </code></pre>
+            </section>
+            <section>
+                <h2>Au futur... les <em>Promises</em></h2>
+
+                <p>Problème : parfois on arrive après la bataille</p>
+                <pre><code data-trim contenteditable class="js">
+var img = document.querySelector('.img-1');
+img.addEventListener('load', function() {
+    // l'image est chargée !
+});
+                </code></pre>
+                <p>On n'obtiendra pas le résultat escompté si on arrive après le chargement de l'image...</p>
+            </section>
+            <section>
+                <h2>Au futur... les <em>Promises</em></h2>
+
+                <p>On peut essayer de corriger ça avec <code>complete</code>...</p>
+                <pre><code data-trim contenteditable class="js">
+var img = document.querySelector('.img-1');
+
+function loaded() {
+    // l'image est chargée !
+}
+
+if (img.complete) {
+    loaded();
+}
+else {
+    img.addEventListener('load', loaded);
+}
+                </code></pre>
+                <p class="fragment">... mais on n'a aucun équivalent pour l'erreur, par exemple <br/>
+                <img src="img/shm.gif" alt="Zoidberg is ashamed and trash himself" /></p>
+            </section>
+            <section>
+                <h2>Au futur... les <em>Promises</em></h2>
+
+                <p>Les <em>Promises</em> arrivent via des librairies, en attendant leur plein support. Dans l'idée, ça donne ça :</p>
+                <pre><code data-trim contenteditable class="js">
+var promise = new Promise(function(resolve, reject) {
+
+    // faire un truc, peut-être asynchrone, puis...
+
+    if (/* tout a bien marché */) {
+        resolve("Ces trucs ont marché !");
+    } else {
+        reject(Error("Ça a foiré"));
+    }
+});
+
+promise.then(function(result) {
+    console.log(result); // "Ces trucs ont marché !"
+}, function(err) {
+    console.log(err); // Error: "Ça a foiré"
+});
+                </code></pre>
+                <p>Cool, non ?</p>
+            </section>
+            <section>
+                <h2>Au futur... les <em>Promises</em></h2>
+                <p>Envie d'en savoir plus ?</p>
+                <p class="fragment roll-in"><img src="img/clarity.gif" alt="Brad Pitt has an instant of clarity : Shit Yeah !" /></p>
+                <p class="fragment">Allez lire <a href="http://www.html5rocks.com/fr/tutorials/es6/promises/">cet excellent article</a> de <a href="https://twitter.com/jaffathecake">Jake Archibald</a> <small>traduit par <a href="https://twitter.com/porteneuve">Christophe Porteneuve</a></small></p>
+
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>JavaScript permet-il la POO ?</h2>
+                <h3>Tout dépend de la définition qu'on a de la POO...</h3>
+            </section>
+            <section>
+                <h2>POO "Classique"</h2>
+
+                <p>La POO repose sur 5 fondamentaux définis entre 1960 et 1970</p>
+                <ol>
+                    <li>L’objet</li>
+                    <li>L’encapsulation</li>
+                    <li>Les&nbsp;messages</li>
+                    <li>Le&nbsp;typage</li>
+                    <li>Le&nbsp;polymorphisme</li>
+                </ol>
+                <aside class="notes">
+                    <ul>
+                        <li>L’objet, un conteneur symbolique</li>
+                        <li>L’encapsulation, qui confère à l’objet la sécurité de ses propriétés</li>
+                        <li>Les messages (ou méthodes), qui permettent à l’extérieur de communiquer avec mon objet</li>
+                        <li>Le typage, qui donne à l’objet une appartenance à une famille conceptuelle</li>
+                        <li>Le polymorphisme, qui autorise l’objet à appartenir à plusieurs familles conceptuelles</li>
+                    </ul>
+                    <p>
+                        Attention : l’héritage simple (Java, C++, .NET) n’est qu’une façon de gérer le polymorphisme (Eiffel est un langage Objet qui permet par exemple l’héritage multiple).
+                    </p>
+                </aside>
+            </section>
+            <section>
+                <h2>Prérequis #1 : l'objet</h2>
+
+                <p>On peut utiliser <code>Object</code></p>
+                <pre><code data-trim contenteditable class="js">
+var myHero = {
+    realName: "Clark Kent",
+    surname: "Superman" 
+}
+                </code></pre>
+                <p>Suivant !</p>
+            </section>
+            <section>
+                <h2>Prérequis #2 : l'encapsulation</h2>
+
+                <p>Là, ça ne colle plus... Je peux modifier toutes les infos librement</p>
+                <pre><code data-trim contenteditable class="js">
+var myHero = {
+    realName: "Clark Kent",
+    surname: "Superman" 
+}
+myHero.realName = "Lex Luthor"; // Mouhahahahaaaa !
+                </code></pre>
+                <p>Mais on sait comment rendre indisponible une variable "à l'extérieur" : il suffit de la mettre dans une fonction</p>
+                <pre><code data-trim contenteditable class="js">
+function Hero(){
+    var realName = "Clark Kent",
+        surname = "Superman";
+}
+var myHero = new Hero();
+                </code></pre>
+                <p>Les champs sont cachés et on peut se servir de <code>Hero</code> comme constructeur paramétré si on le souhaite</p>
+            </section>
+            <section>
+                <h2>Prérequis #3 : accès extérieurs</h2>
+
+                <p>On peut ajouter un accesseur</p>
+                <pre><code data-trim contenteditable class="js">
+function Hero(name, surname){
+    var realName = name,
+        surname = surname;
+    this.getSurname = function(){
+        return surname
+    };
+}
+
+var myHero = new Hero("Clark Kent", "Superman");
+alert(myHero.getSurname()); // "Superman"
+alert(myHero.realName); // undefined
+                </code></pre>
+            </section>
+            <section>
+                <h2>Prérequis #4 : le typage</h2>
+
+                <p>A chaud, pas trop possible, car JavaScript n’a pas de types évolués : à part les types primitifs, tout est <code>Object</code></p>
+                <pre><code data-trim contenteditable class="js">
+alert(typeof(myHero)); // object
+                </code></pre>
+                <p>Par contre si je maintiens la liste des types existants, je peux tous les tester et arriver à la conclusion que :</p>
+                <pre><code data-trim contenteditable class="js">
+alert(myHero instanceof Hero); // « true »
+                </code></pre>
+            </section>
+            <section>
+                <h2>Prérequis #5 : le polymorphisme</h2>
+
+                <p>JavaScript n’enregistre, pour un objet, qu’une seule référence vers une « source » structurelle : son prototype.</p>
+                <p>Pas de polymorphisme donc, mais on peut pratiquer l'héritage (ce qui, pour certaines personnes, est la règle #5 de la POO). Donc finalement, c'est cool :)</p>
+            </section>
+            <section>
+                <h2>Programmation Orientée Prototype</h2>
+
+                <p>En utilisant le prototype, on peut optimiser l'exemple précédent pour ne pas recopier l'accesseur dans toutes les instances et le définir uniquement quand <code>Hero</code> n'est pas encore initialisé :</p>
+                <pre><code data-trim contenteditable class="js">
+function Hero(name, surname){
+    var realName = name,
+        surname = surname;
+    if (typeof Hero.initialized == "undefined"){
+        Hero.prototype.getSurname = function(){
+            return surname
+        };
+    }
+}
+
+var myHero = new Hero("Clark Kent", "Superman");
+alert(myHero.getSurname()); // "Superman"
+alert(myHero.realName); // undefined
+                </code></pre>
+            </section>
+            <section>
+                <h2>Programmation Orientée Prototype</h2>
+
+                <p>On peut même réorganiser le code autour des notions de privé et public :</p>
+                <pre><code data-trim contenteditable class="js">
+function Hero(name, surname){
+    var publics = this,
+        privates = {};
+    publics.name = name;
+    privates.surname = surname;
+    if (typeof Hero.initialized == "undefined"){
+        Hero.prototype.getSurname = function(){
+            return privates.surname
+        };
+    }
+}
+
+var myHero = new Hero("Clark Kent", "Superman");
+alert(myHero.getSurname()); // "Superman"
+alert(myHero.realName); // undefined
+                </code></pre>
+            </section>
+            <section>
+                <h2>Programmation Orientée Prototype</h2>
+
+                <p>Et ajouter la notion de constructeur, de méthodes statiques et de chaînage des propriétés</p>
+                <pre><code data-trim contenteditable class="js">
+/*** Déclaration du type ***/
+function Hero(name, surname) {
+    this.init(name, surname);
+    Hero.total = typeof Hero.total != 'undefined' ? Hero.total + 1 : 1
+}
+/*** Enrichissement ***/
+(function () {
+    Hero.total = 0;
+
+    /*** Constructeur ***/
+    Hero.prototype.init = function (name, surname) {
+        this.__privates = this.__privates || { surname: surname };
+        name && this.name(name)
+    };
+
+    /*** Getter/Setter ***/
+    Hero.prototype.name = function (value) {
+        var privates = this.__privates;
+        if (typeof value == 'undefined') {
+            return privates.name
+        } else {
+            privates.name = new String(value).toString();
+            return this
+        }
+    };
+
+    /*** Getter ***/
+    Hero.prototype.surname = function () {
+        var privates = this.__privates;
+        return privates.surname
+    }
+}());
+
+// Utilisation
+var Super = new Hero('Clark Kent', 'Superman'),
+    Spidey = new Hero('Peter Parker', 'Spiderman');
+
+// Variable statique
+alert(Hero.total);
+
+// Chaînage
+alert(Spidey.name('Otto Octavius').surname());
+alert(Spidey.name())
+                </code></pre>
+            </section>
+            <section>
+                <h2>Programmation Orientée Prototype</h2>
+
+                <p>Mais attention alors à la dépendance au prototype</p>
+                <pre><code data-trim contenteditable class="js">
+var myHero = new Hero("Clark Kent", "Superman");
+alert(myHero.surname()); // "Superman"
+
+Hero.prototype.surname = function(){ return "Superslip" };
+alert(myHero.surname()); // "Superslip"
+                </code></pre>
+                <p><img alt="Encore un coup de Lex Luthor" src="img/luthor.jpg"/></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Pièges et Astuces</h2>
+            </section>
+            <section>
+                <h2>Piège : contexte</h2>
+                <p><code>this</code> représente le contexte dans lequel s’exécute une fonction au moment où elle est appelée</p>
+                <pre><code data-trim contenteditable class="js">
+function quiSuisJe() {
+    alert(this);
+}
+
+var coucou = {
+    quiSuisJe : function () {
+        alert(this);
+    }
+};
+
+quiSuisJe();        // [object Window]
+coucou.quiSuisJe(); // [object Object]
+                </code></pre>
+            </section>
+            <section>
+                <h2>Piège : gestion des erreurs</h2>
+                <p>Les gestion des erreurs est possible en JavaScript</p>
+                <pre><code data-trim contenteditable class="js">
+try {
+    // code JavaScript à surveiller
+}
+catch (erreur) {
+    alert(erreur.name);
+    alert(erreur.message);
+}
+finally {
+    // code JavaScript à exécuter dans
+    // tous les cas (facultatif)
+}
+                </code></pre>
+                <p>Malheureusement, cela entraine une <a href="http://jsperf.com/try-catch-performance-overhead">surcharge mémoire indédiable sur V8</a>, aujourd'hui moteur leader.</p>
+            </section>
+            <section>
+                <h2>Piège : nombres</h2>
+                <p>Maximum, minimum</p>
+                <pre><code data-trim contenteditable class="js">
+var x = 9007199254740992; // Max
+var y = -x;
+x == x + 1; // true
+y == y - 1; // true
+
+z = x + 2; // 9007199254740994, ok
+z - 1; // 9007199254740992, WTF ?
+                </code></pre>
+                <p>Opérateurs arithmétiques en 64bits, décalages et opérations bit à bit en 32 bits seulement</p>
+                <pre><code data-trim contenteditable class="js">
+var x = 9007199254740992; // 2^53, [10000000....00]
+x / 2;      // 4503599627370496, ok
+x >> 1;     // 0 au lieu de 2^52
+x | 1;      // 1 au lieu de 2^52 + 1
+                </code></pre>
+            </section>
+            <section>
+                <h2>Piège : Référence Vs. Type</h2>
+
+                <pre><code data-trim contenteditable class="js">
+var objects = [{}, {}, {}];
+
+for(var i = 0; i < objects.length; i++) {
+    objects[i].logIndex = function() {
+        console.log(i);
+    }
+}
+
+objects[0].logIndex(); // 3, WTF !
+objects[1].logIndex(); // 3, WTF !
+objects[2].logIndex(); // 3, WTF !
+                </code></pre>
+                <p>Quand <code>i</code> est passé au <code>console.log()</code>, c'est par référence... Pour corriger, voyons d'abord deux astuces !</p>
+            </section>
+            <section>
+                <h2>Astuce : renvoi de fonction</h2>
+
+                <p>Test réalisé à chaque fois</p>
+                <pre><code data-trim contenteditable class="js">
+function TestURL(){
+    if (window.location == "http://google.fr"){
+        alert("Google !");
+    } else {
+        alert("Pas Google");
+    }
+}
+                </code></pre>
+                <p>Test réalisé une fois</p>
+                <pre><code data-trim contenteditable class="js">
+function TestURL(){
+    if (window.location == "http://google.fr"){
+        return function() {
+            alert("Google !");
+        }
+    } else {
+        return function() {
+            alert("Pas Google");
+        }
+    }
+}
+                </code></pre>
+            </section>
+            <section>
+                <h2>Astuce : IIFE ("iffy")</h2>
+
+                <p>Fonctions anonymes immédiatement appelées, un pattern de développement courant en JS. Permet d'éviter le Hoisting et de créer des portées lexicales (namespaces).</p>
+                <pre><code data-trim contenteditable class="js">
+(function(){
+    // du code
+})();
+                </code></pre>
+                <p>Autre intérêt des IIFE, s'assurer que certain opérateurs sont surchargés comme vous le souhaitez. Exemple, si vous n'êtes pas sûr que <code>$</code> correspond à jQuery, encadrez votre code de :</p>
+                <pre><code data-trim contenteditable class="js">
+(function($){
+    // votre code
+})(jQuery);
+                </code></pre>
+            </section>
+            <section>
+                <h2>Piège : Référence Vs. Type</h2>
+
+                <p>Utilisation du renvoi de fonction et d'une IIFE</p>
+                <pre><code data-trim contenteditable class="js">
+var objects = [{}, {}, {}];
+
+for(var i = 0; i < objects.length; i++) {
+    (function(index){
+        objects[i].logIndex = function() {
+            console.log(index);
+        }
+    })(i)
+}
+
+objects[0].logIndex(); // 0!
+objects[1].logIndex(); // 1!
+objects[2].logIndex(); // 2!
+                </code></pre>
+                <p>Quand <code>index</code> est passé au <code>console.log()</code>, c'est par valeur cette fois !</p>
+            </section>
+            <section>
+                <h2>Piège : DOM, JS et Memory Leak</h2>
+
+                <p>JavaScript et DOM n'ont pas le même <em>Garbage Collector</em>.</p>
+                <p>Bien que tous deux capables de gérer <strong>leurs</strong> références circulaires, ils ne sont pas capables de gérer les dépendances de l'autre univers...</p>
+                <pre><code data-trim contenteditable class="js">
+var jsObject;
+function FuiteMemoire(idDiv){
+    // On stocke dans une variable JS une référence au DOM
+    jsObject = document.getElementById(idDiv);
+
+    /* Plein de code */
+
+    //  Et là, le développeur se rate et référence l’objet JS
+    // depuis le DOM
+    document.getElementById(idDiv).expandoProperty= jsObject;
+}
+
+// Epic Fail : Memory Leak
+                </code></pre>
+            </section>
+            <section>
+                <h2>Piège : DOM, JS et Memory Leak</h2>
+
+                <p>Variante : le développeur référence depuis l'intérieur d'une énorme méthode un élément du DOM, qui lui même référence l'objet.</p>
+                <pre><code data-trim contenteditable class="js">
+function Encapsule(element){
+    // Assignation d’une propriété
+    this.elementReference = element;
+
+    // Référence circulaire
+    element.expandoProperty = this;
+}
+
+function EnormeMethode() {
+    /* Plein de code */
+
+    Encapsule(document.getElementById("maDiv"))
+
+    /* Encore plein de code */
+}
+                </code></pre>
+                <p><code>EnormeMethode</code> ne pourra jamais être nettoyée.</p>
+            </section>
+            <section>
+                <h2>Piège : DOM, JS et Memory Leak</h2>
+
+                <p>Variante la plus courante : attachement d'un évènement à une méthode anonyme, empêchant le GC de nettoyer l'un ou l'autre si l'un des éléments est supprimé.</p>
+                <pre><code data-trim contenteditable class="js">
+window.addEventListener("load", function(){
+    // obj sera ramassé par le GC dès qu’il sera sorti du contexte
+    var obj = document.getElementById("element");
+
+    // en revanche, la liaison ici relie un objet DOM à une
+    // méthode anonyme du JS, définie dans le même contexte que obj
+    obj.addEventListener("click", function(evt){
+        // logique
+    }, false);
+}, false);
+                </code></pre>
+                <p>Présent dans 99% des scripts.</p>
+            </section>
+            <section>
+                <h2>Piège : DOM, JS et Memory Leak</h2>
+
+                <p>Pour éviter ces problèmes, utilisez <code>removeEventListener</code> ou <code>off</code> (jQuery).</p>
+                <pre><code data-trim contenteditable class="js">
+var item = document.createElement("div");
+var listener = function(event) {
+    // du code
+    // on enlève le listener pour éviter la fuite
+    this.removeEventListener("click", listener, false);
+};
+item.addEventListener("click", listener, false);
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Frameworks</h2>
+                <h3>et librairies</h3>
+                <p><small>(liste non-exhaustive)</small></p>
+            </section>
+            <section>
+                <h2><a href="http://jquery.com/">jQuery</a></h2>
+                <p>Framework rapide, compact et gérant très bien l'asynchrone de <a href="https://twitter.com/jeresig">John Resig</a>, ayant remporté un grand succès, principalement parce qu'il a été adopté par les intégrateurs HTML.</p>
+                <p>Souvent utilisé pour faire des choses simples. Au lieu de les faire simplement.</p>
+                <pre><code data-trim contenteditable class="js">
+// jQuery
+$(el).hide();
+$(el).show();   // Ajoute un "display:block", WTF ?!
+
+// IE8+
+el.style.display = 'none';
+el.style.display = '';      // Ne fait que ce que vous lui demandez
+                </code></pre>
+                <p><a href="http://youmightnotneedjquery.com/">You Might Not Need jQuery</a></p>
+            </section>
+            <section>
+                <h2>Autres Frameworks généraux</h2>
+                <ul>
+                    <li><a href="http://zeptojs.com/">ZeptoJS</a> : framework très minimaliste ayant la particularité de proposer un sous ensemble de l'API jQuery. Peut habilement remplacer ce dernier, mais attention à la compatibilité navigateur.</li>
+                    <li><a href="http://underscorejs.org/">Underscore.js</a> : framework utilitaire orienté manipulation de données d'inspiration Ruby</li>
+                    <li><a href="http://lodash.com/">Lo-Dash</a> : framework utilitaire orienté consistence et performance</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Frameworks de composants</h2>
+                <ul>
+                    <li><a href="https://jqueryui.com/">jQuery UI</a> : librairie de composants associée à jQuery</li>
+                    <li><a href="http://yuilibrary.com/">YUI</a> : librairie de composants de Yahoo!</li>
+                    <li><a href="http://zeptojs.com/">Dojo Toolkit</a> : librairie de composants dont le développement est sponsorisé par IBM et SitePen</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Frameworks pour applications riches</h2>
+                <ul>
+                    <li><a href="http://backbonejs.org/">Backbone.js</a> : Framework MV* très populaire de <a href="https://twitter.com/jashkenas">Jeremy Ashkenas</a>.</li>
+                    <li><a href="http://emberjs.com/">Ember.js</a> : Framework MV* de <a href="https://twitter.com/wycats">Yehuda Katz</a>, par ailleurs contributeur jQuery et Ruby On Rails.</li>
+                    <li><a href="http://knockoutjs.com/">Knockout.js</a> : un des seuls Frameworks applicatifs MVVM</li>
+                    <li><a href="http://angularjs.org/">Ext JS</a> : librairie de componsants de Sencha.</li>
+                    <li><a href="http://angularjs.org/">Angular.js</a> : polyfill HTML5+, par Google.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Polyfills utiles</h2>
+                <ul>
+                    <li><a href="https://code.google.com/p/html5shiv/">HTML5shiv.js</a> : polyfill HTML5 créé par <a href="https://twitter.com/sjoerd_visscher">Sjoerd Visscher</a>, maintenu par <a href="https://github.com/aFarkas">Alexander Farkas</a>.</li>
+                    <li><a href="http://modernizr.com/">Modernizr</a> : ensemble de polyfills et de détecteurs de features HTML5 et CSS3.</li>
+                    <li><a href="https://github.com/kriskowal/q">Q</a>, <a href="https://github.com/cujojs/when">when</a> et <a href="https://github.com/tildeio/rsvp.js">RSVP.js</a> : des librairies polyfills pour les <em>Promises</em></li>
+                </ul>
+            </section>
+            <section>
+                <h2>Ces librairies sont trop génériques ?</h2>
+                <p>Jetez un oeil à <a href="http://microjs.com">MicroJS</a> et ses micro-librairies (inférieures à 5Ko) rendant chacune un service très précis.</p>
+                <p><a href="http://microjs.com">MicroJS</a> est <a href="https://github.com/madrobby/microjs.com">sur GitHub</a> et n'importe qui peut y ajouter son script licencié MIT ou équivalent.</p>
+                <p>Exemple : <a href="https://github.com/borisschapira/preloadr">preloadr.js</a></p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Quelques outils bien pratiques</h2>
+                <h3>pour mieux faire du JavaScript</h3>
+            </section>
+            <section>
+                <h2>Partager un snippet</h2>
+                <ul>
+                    <li><a href="http://jsfiddle.net/">JsFiddle</a> et <a href="http://codepen.io/">CodePen</a> : vous permettent de partager rapidement un exemple Web (HTML+JS+CSS)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Qualité</h2>
+                <ul>
+                    <li><a href="http://www.jslint.com/">JSLint</a> : outil d'audit de code de Douglas Crockford (Yahoo, inventeur de JSON et auteur de <a href="http://shop.oreilly.com/product/9780596517748.do">JavaScript: The Good Parts</a>. JSLint est utile, bien que très tatillon, voire intransigeant.</li>
+                    <li><a href="http://www.jshint.com/">JSHint</a> : fork JSLint de <a href="https://github.com/antonkovalyov">Anton Kovalyov</a>, pour développer un outil plus proche de la communauté.</li>
+                    <li><a href="http://jsmanners.com/">JS Manners</a> : pour évaluer un script fourni par un tiers.</li>
+                </ul>
+                <blockquote cite="http://brendaneich.com/2010/11/paren-free/">
+                    &ldquo;JSLint can suck it&rdquo;, Brendan Eich
+                </blockquote>
+            </section>
+            <section>
+                <h2>Compilateurs</h2>
+                <ul>
+                    <li><a href="http://yui.github.io/yuicompressor/">YUI Compressor</a> : compilateur/compresseur de Yahoo, bien éprouvé, hors-ligne (Java)</li>
+                    <li><a href="http://closure-compiler.appspot.com/home">Closure Compiler</a> : compilateur de Google, en ligne, en API ou hors ligne (Java)</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Une question de performance</h2>
+                <ul>
+                    <li><a href="http://jsperf.com">JSPerf.com</a> : plate-forme de crowdtesting de code(s) JavaScript.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Programmer en JS, mais pas tout à fait</h2>
+                <ul>
+                    <li><a href="http://www.typescriptlang.org/">TypeScript</a> : sur-ensemble de JavaScript, offrant des fonctionnalités d'ECMAScript 6 (classes, typages) et compilant en JavaScript d'aujourd'hui. Par <a href="https://twitter.com/ahejlsberg">Anders Hejlsberg</a> (concepteur du Framework .NET).</li>
+                    <li><a href="http://coffeescript.org/">CoffeeScript</a> : langage de développement basé sur l'indentation, se compilant en JavaScript et introduisant notamment des raccourcis de code comme <code>@</code> pour <code>this</code> et <code>::</code> pour les méthodes de prototype.</li>
+                    <li><a href="https://www.dartlang.org/">Dart</a> : langage de développement Web productif, compilant en JavaScript, livré avec son éditeur. Par Google.</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Les portes ouvertes par JavaScript</h2>
+                <ul>
+                    <li><a href="http://nodejs.org/">Node</a> : le retour de JavaScript côté serveur, pour des applications vraiment scalables.</li>
+                    <li><a href="http://casperjs.org/">Casper</a> : tests fonctionnels sur Gecko (via <a href="http://slimerjs.org/">Slimmer</a>) et Webkit(via <a href="http://phantomjs.org/">Phantom</a>).</li>
+                    <li><a href="http://msdn.microsoft.com/en-us/library/windows/apps/br211867.aspx">WinJS</a> : pour développer des applications Windows 8 sous Chakra</li>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h1>FIN</h1>
+                <h3>ça vous a plu ?</h3>
+                <small>par <a href="http://twitter.com/borisschapira" title="Twitter de Boris Schapira">@borisschapira</a> | <a href="http://fr.clever-age.com/">Clever Age</a></small>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
+                <pre><code data-trim contenteditable class="js">
+result = [] + [];
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+result = [] + []; // ""
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/wtf1.gif" /></p>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
+                <pre><code data-trim contenteditable class="js">
+result = {} + [];
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+result = {} + []; // [object Object]
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/wtf2.gif" /></p>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
+                <pre><code data-trim contenteditable class="js">
+"wtf" - 1
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+"wtf" - 1 // NaN
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/wtf3.gif" /></p>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
+                <pre><code data-trim contenteditable class="js">
+result = Array(16).join("wtf" - 1) + ' Batman !';
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+result = Array(16).join("wtf" - 1) + ' Batman !';
+// "NaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaNNaN Batman !"
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/wtf4.gif" /></p>
+            </section>
+        </section>
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+        ]
+    });
+
+</script>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-4257717-6', 'borisschapira.github.io');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>
