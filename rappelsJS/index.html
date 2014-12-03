@@ -1048,14 +1048,46 @@ el.style.display = '';      // Ne fait que ce que vous lui demandez
             </section>
         </section>
         <section>
-            <section>
-                <h1>FIN</h1>
-                <h3>ça vous a plu ?</h3>
-                <small>par <a href="http://twitter.com/borisschapira" title="Twitter de Boris Schapira">@borisschapira</a> | <a href="http://fr.clever-age.com/">Clever Age</a></small>
+            <h1>FIN</h1>
+            <h3>ça vous a plu ?</h3>
+            <small>par <a href="http://twitter.com/borisschapira" title="Twitter de Boris Schapira">@borisschapira</a> | <a href="http://fr.clever-age.com/">Clever Age</a></small>
+        </section>
+        <section>
+        	<section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <h3>Sources</h3>
+                <ul>
+                	<li><a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></li>
+                	<li><a href="http://www.js-attitude.fr/2014/11/26/js-date-lolwut/">Le type Date en JS : LOLWUT?!</a> par <a href="https://github.com/tdd">Christophe Porteneuve</a> & <a href="http://delicious-insights.com/">Delicious Insights</a></li>
+                </ul>
+            </section>
+             <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <pre><code data-trim contenteditable class="js">
+var d = new Date(Date.UTC(2014, 10, 26, 13, 31, 56)); 
+// Wed Nov 26 2014 14:31:56 GMT+0100 (Paris, Madrid)
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+d.getYear() // => 114
+d.getMonth() // => 10
+d.getDay() // => 3
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/dead1.gif" /></p>
+            </section>
+             <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <pre><code data-trim contenteditable class="js">
+var d = new Date(1845, 3, 17); 
+// Thu Apr 17 1845 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+var d2 = new Date(2014, -2163, 4217); // Gni ?
+// Thu Apr 17 1845 00:00:00 GMT+0200 (Paris, Madrid (heure d’été))
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/omg.gif" /></p>
             </section>
             <section>
                 <h2>Bonus : WTF JS ?!</h2>
-                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
                 <pre><code data-trim contenteditable class="js">
 result = [] + [];
                 </code></pre>
@@ -1066,7 +1098,6 @@ result = [] + []; // ""
             </section>
             <section>
                 <h2>Bonus : WTF JS ?!</h2>
-                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
                 <pre><code data-trim contenteditable class="js">
 result = {} + [];
                 </code></pre>
@@ -1077,7 +1108,6 @@ result = {} + []; // [object Object]
             </section>
             <section>
                 <h2>Bonus : WTF JS ?!</h2>
-                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
                 <pre><code data-trim contenteditable class="js">
 "wtf" - 1
                 </code></pre>
@@ -1088,7 +1118,6 @@ result = {} + []; // [object Object]
             </section>
             <section>
                 <h2>Bonus : WTF JS ?!</h2>
-                <h3>Tiré de <a href="https://www.destroyallsoftware.com/talks/wat">Wat</a> par <a href="https://twitter.com/garybernhardt">Gary Bernhardt</a></h3>
                 <pre><code data-trim contenteditable class="js">
 result = Array(16).join("wtf" - 1) + ' Batman !';
                 </code></pre>
