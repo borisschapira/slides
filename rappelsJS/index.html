@@ -1109,6 +1109,49 @@ result = {} + []; // [object Object]
             <section>
                 <h2>Bonus : WTF JS ?!</h2>
                 <pre><code data-trim contenteditable class="js">
+result = '4' - '2';
+result = '4' + 2;
+result = '4' - '2';
+result = '4' + + '2';
+result = '4' + - '2';
+result = '4' + - + - - - + + + + - + - - '-2';
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+result = '4' - '2'; // 2
+result = '4' + 2; // "42"
+result = '4' + + '2'; // "42"
+result = '4' + - '2'; // "4-2"
+result = '4' + - + - - - + + + + - + - - '-2'; // "42"
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/w8wut.gif" /></p>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <pre><code data-trim contenteditable class="js">
+var x = 42;
+result1 = '42' - x + x;
+result2 = '42' + x - x;
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+var x = 42;
+result1 = '42' - x + x; // 42
+result2 = '42' + x - x; // 4200
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/taycry.gif" /></p>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <pre><code data-trim contenteditable class="js">
+result = 'ro' + + 'ro' + ' the accuser';
+                </code></pre>
+                <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
+result = 'ro' + + 'ro' + ' the accuser'; // "roNaN the accuser"
+                </code></pre>
+                <p class="fragment" data-fragment-index="1"><img title="WTF ?!" src="img/ronan.gif" /></p>
+            </section>
+            <section>
+                <h2>Bonus : WTF JS ?!</h2>
+                <pre><code data-trim contenteditable class="js">
 "wtf" - 1
                 </code></pre>
                 <pre class="fragment" data-fragment-index="1"><code data-trim contenteditable class="js">
